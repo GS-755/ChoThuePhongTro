@@ -56,19 +56,19 @@ public interface IMyApi {
     Call<ArrayList<User>> getUsers();
     @GET("users")
     Call<User> getUser(@Query("id") String id);
-    @Headers({ "Content-Type: application/json" })
+    // @Headers({ "Content-Type: application/json" })
     @POST("users/adduser")
     Call<User> postUser(@Body User user);
-    @Headers({ "Content-Type: application/json" })
+    // @Headers({ "Content-Type: application/json" })
     @PUT("users/edituser")
     Call<User> editUser(@Query("id") String id, @Body User user);
 
     // Accounts API
-    @Headers({ "Content-Type: application/json" })
+    // @Headers({ "Content-Type: application/json" })
     @POST("accounts/login")
     Call<Account> loginAccount(@Query("username")
                                String userName, @Query("password") String password);
-    @Headers({ "Content-Type: application/json" })
+    // @Headers({ "Content-Type: application/json" })
     @POST("accounts/register")
     Call<Account> registerAccount(@Body Account account);
     // Transaction types API
