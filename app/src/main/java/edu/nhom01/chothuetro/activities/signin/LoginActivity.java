@@ -7,17 +7,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.nhom01.chothuetro.R;
-import edu.nhom01.chothuetro.data.person.AccountData;
+import edu.nhom01.chothuetro.data.person.AccountsData;
 import edu.nhom01.chothuetro.models.nodes.LoginNode;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView labelRegister, labelForgotPassword, labelFailToLogin;
     private EditText txtUsrName, txtPassword;
-    private AccountData accountData;
+    private AccountsData accountsData;
 
     private void setComponents() {
-        this.accountData = new AccountData();
+        this.accountsData = new AccountsData();
         this.txtUsrName = findViewById(R.id.txtUserName);
         this.txtPassword = findViewById(R.id.txtPassword);
         this.labelForgotPassword = findViewById(R.id.labelForgotPassword);
@@ -36,10 +36,10 @@ public class LoginActivity extends AppCompatActivity {
             String userName = this.txtUsrName.getText().toString();
             String password = this.txtPassword.getText().toString();
             LoginNode loginNode = new LoginNode(userName, password);
-            this.accountData.setLoginNode(loginNode);
+            this.accountsData.setLoginNode(loginNode);
             try {
-                this.accountData.fetchData();
-                this.labelFailToLogin.setText(this.accountData.getMessage());
+                this.accountsData.fetchData();
+                this.labelFailToLogin.setText(this.accountsData.getMessage());
             }
             catch(NullPointerException ex) {
                 this.labelFailToLogin.setText(ex.getMessage());
