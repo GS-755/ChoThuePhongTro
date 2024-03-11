@@ -22,19 +22,23 @@ import retrofit2.http.Query;
 
 public interface IApiRoutes {
     // API URL
-    String API_URL = "http://192.168.17.120:3030/api/";
-    String IMG_URL = "http://192.168.17.120:3030/api/images/getmotelimage";
+    String API_URL = "http://192.168.40.128:3030/api/";
+    String IMG_URL = "http://192.168.40.128:3030/api/images/getmotelimage";
 
     // Locations API
     @GET("locations")
+    @Headers({ "Content-Type: application/json" })
     Call<ArrayList<Location>> getLocations();
     @GET("locations")
+    @Headers({ "Content-Type: application/json" })
     Call<Location> getLocation(@Query("id") int id);
 
     // Motels API
     @GET("motels")
+    @Headers({ "Content-Type: application/json" })
     Call<ArrayList<Motel>> getMotels();
     @GET("motels")
+    @Headers({ "Content-Type: application/json" })
     Call<Motel> getMotel(@Query("id") int id);
     @POST("motels/postphongtro")
     @Headers({ "Content-Type: application/json" })
@@ -43,16 +47,20 @@ public interface IApiRoutes {
     @Headers({ "Content-Type: application/json" })
     Call<Motel> putMotel(@Path("id") int id, @Body Motel motel);
     @DELETE("motels/deletephongtro")
+    @Headers({ "Content-Type: application/json" })
     Call<Motel> deleteMotel(@Query("id") int id);
 
     // Roles API
     @GET("roles")
+    @Headers({ "Content-Type: application/json" })
     Call<ArrayList<Role>> getRoles();
     @GET("roles")
+    @Headers({ "Content-Type: application/json" })
     Call<Role> getRole(@Query("id") int id);
 
     // Users API
     @GET("users")
+    @Headers({ "Content-Type: application/json" })
     Call<ArrayList<User>> getUsers();
     @GET("users")
     @Headers({ "Content-Type: application/json" })
@@ -75,14 +83,18 @@ public interface IApiRoutes {
 
     // Transaction types API
     @GET("transactiontypes")
+    @Headers({ "Content-Type: application/json" })
     Call<ArrayList<TransactionType>> getTransactionTypes();
     @GET("transactiontypes")
+    @Headers({ "Content-Type: application/json" })
     Call<TransactionType> getTransactionType(@Query("id") int id);
 
     // Transactions API
     @GET("transactions")
+    @Headers({ "Content-Type: application/json" })
     Call<ArrayList<Transaction>> getTransactions();
     @GET("transactions")
+    @Headers({ "Content-Type: application/json" })
     Call<Transaction> getTransaction(@Query("id") String id);
     @POST("transactions/postgiaodich")
     @Headers({ "Content-Type: application/json" })
@@ -91,6 +103,7 @@ public interface IApiRoutes {
 
     // VnPay API
     @GET("vnpay/sendtransaction")
+    @Headers({ "Content-Type: application/json" })
     Call<VnPayNode> sendTransactionLink(@Query("maGd") String transactId,
                                         @Query("vnpBankCode") String vnpBankCode);
 }

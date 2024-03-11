@@ -10,11 +10,11 @@ public class Account {
     @SerializedName("NguoiDung")
     private User user;
     @SerializedName("GiaoDich")
-    private ArrayList<Transaction> transaction;
+    private ArrayList<Transaction> transactions;
     @SerializedName("PTYeuThich")
-    private ArrayList<FavoriteMotel> favoriteMotel;
+    private ArrayList<FavoriteMotel> favoriteMotels;
     @SerializedName("PhongTro")
-    private ArrayList<Motel> motel;
+    private ArrayList<Motel> motels;
     @SerializedName("VaiTro")
     private Role role;
     @SerializedName("TenDangNhap")
@@ -35,11 +35,11 @@ public class Account {
     @SerializedName("NguoiDung")
     public User getUser() { return this.user; }
     @SerializedName("GiaoDich")
-    public ArrayList<Transaction> getTransaction() { return this.transaction; }
+    public ArrayList<Transaction> getTransactions() { return this.transactions; }
     @SerializedName("PTYeuThich")
-    public ArrayList<FavoriteMotel> getFavoriteMotel() { return this.favoriteMotel; }
+    public ArrayList<FavoriteMotel> getFavoriteMotels() { return this.favoriteMotels; }
     @SerializedName("PhongTro")
-    public ArrayList<Motel> getMotel() { return this.motel; }
+    public ArrayList<Motel> getMotels() { return this.motels; }
     @SerializedName("VaiTro")
     public Role getRole() { return this.role; }
     @SerializedName("TenDangNhap")
@@ -66,14 +66,14 @@ public class Account {
     public void setUser(User user) {
         this.user = user;
     }
-    public void setTransaction(ArrayList<Transaction> transaction) {
-        this.transaction = transaction;
+    public void setTransactions(ArrayList<Transaction> transactions) {
+        this.transactions = transactions;
     }
-    public void setFavoriteMotel(ArrayList<FavoriteMotel> favoriteMotel) {
-        this.favoriteMotel = favoriteMotel;
+    public void setFavoriteMotels(ArrayList<FavoriteMotel> favoriteMotels) {
+        this.favoriteMotels = favoriteMotels;
     }
-    public void setMotel(ArrayList<Motel> motel) {
-        this.motel = motel;
+    public void setMotels(ArrayList<Motel> motels) {
+        this.motels = motels;
     }
     public void setRole(Role role) {
         this.role = role;
