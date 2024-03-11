@@ -19,7 +19,7 @@ import edu.nhom01.chothuetro.fragments.home.HomeFragment;
 import edu.nhom01.chothuetro.fragments.home.ProfileFragment;
 import edu.nhom01.chothuetro.models.person.Account;
 import edu.nhom01.chothuetro.models.person.User;
-import edu.nhom01.chothuetro.utils.Session;
+import edu.nhom01.chothuetro.fragments.widgets.utils.Session;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
