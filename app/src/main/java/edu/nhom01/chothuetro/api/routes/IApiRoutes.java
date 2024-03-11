@@ -22,7 +22,8 @@ import retrofit2.http.Query;
 
 public interface IApiRoutes {
     // API URL
-    String API_URL = "http://192.168.40.128:3030/api/";
+    String API_URL = "http://192.168.17.120:3030/api/";
+    String IMG_URL = "http://192.168.17.120:3030/api/images/getmotelimage";
 
     // Locations API
     @GET("locations")
@@ -54,6 +55,7 @@ public interface IApiRoutes {
     @GET("users")
     Call<ArrayList<User>> getUsers();
     @GET("users")
+    @Headers({ "Content-Type: application/json" })
     Call<User> getUser(@Query("id") String id);
     @POST("users/adduser")
     @Headers({ "Content-Type: application/json" })

@@ -29,4 +29,7 @@ public class StrProcessor {
 
         return df.format(number) + " đ";
     }
+    public static String getStrChineseDate(int year, int month, int day) {
+        return String.format("%d-%d-%d", year, month, day);
+    }
 }

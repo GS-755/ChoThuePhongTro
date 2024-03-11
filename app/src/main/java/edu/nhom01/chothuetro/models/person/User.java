@@ -3,10 +3,12 @@ package edu.nhom01.chothuetro.models.person;
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
+import edu.nhom01.chothuetro.utils.StrProcessor;
+
 public class User {
     @SerializedName("CCCD")
     private String cid;
-    @SerializedName("HoLot")
+    @SerializedName("Ho")
     private String firstName;
     @SerializedName("Ten")
     private String lastName;
@@ -28,54 +30,51 @@ public class User {
         this.address = address;
     }
 
-    public String getCid() {
-        return cid;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
+    @SerializedName("CCCD")
+    public String getCid() { return this.cid; }
+    @SerializedName("Ho")
+    public String getFirstName() { return this.firstName; }
+    @SerializedName("Ten")
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
+    @SerializedName("NgaySinh")
     public Date getDob() {
-        return dob;
+        return this.dob;
     }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
+    @SerializedName("GioiTinh")
     public int getGender() {
-        return gender;
+        return this.gender;
     }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
+    @SerializedName("DiaChi")
     public String getAddress() {
         return address;
     }
-
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public void setDob(Date dob) { this.dob = dob; }
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
     public void setAddress(String address) {
         this.address = address;
     }
+
     public String getFullName() {
         return String.format("%s %s", this.firstName.trim(), this.lastName.trim());
+    }
+    public String getStrChineseDate() {
+        return StrProcessor.getStrChineseDate(
+                this.dob.getYear(),
+                this.dob.getMonth(),
+                this.dob.getDay()
+        );
     }
 }

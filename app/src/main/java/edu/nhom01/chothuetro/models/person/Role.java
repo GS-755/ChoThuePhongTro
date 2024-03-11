@@ -8,6 +8,7 @@ public class Role {
     @SerializedName("TenVaiTro")
     private String roleName;
 
+
     public Role() { }
     public Role(int roleId, String roleName) {
         this.roleId = roleId;

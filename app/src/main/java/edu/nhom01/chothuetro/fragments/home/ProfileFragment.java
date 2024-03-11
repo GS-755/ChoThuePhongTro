@@ -17,9 +17,13 @@ import android.widget.Toast;
 
 import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.activities.signin.LoginActivity;
+import edu.nhom01.chothuetro.api.client.ApiClient;
 import edu.nhom01.chothuetro.models.person.Account;
 import edu.nhom01.chothuetro.models.person.User;
 import edu.nhom01.chothuetro.utils.Session;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,18 +78,14 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
-
-    private User user;
     private Account account;
     private Button btnProfileLogout;
     private TextView labelProfileName, labelProfilePhone, labelProfileEmail;
 
     protected void setComponents(@NonNull View view) {
-        this.user = new User();
         this.account = new Account();
         try {
-            this.user = (User)Session.get("current_user");
-            this.account = (Account)Session.get("current_account");
+            this.account = (Account)Session.get("current-account");
         }
         catch(NullPointerException ex) {
             Log.d("INT_ERR", ex.getMessage());
@@ -96,12 +96,15 @@ public class ProfileFragment extends Fragment {
         this.labelProfileEmail = view.findViewById(R.id.labelProfileEmail);
     }
     protected void setContentProfile() {
-        this.labelProfileName.setText(this.user.getFullName());
-        this.labelProfilePhone.setText(this.account.getPhone().trim());
-        this.labelProfileEmail.setText(this.account.getEmail().trim());
+        if(this.account != null) {
+            this.labelProfileName.setText(this.account.getUser().getFullName().trim());
+            this.labelProfilePhone.setText(this.account.getPhone().trim());
+            this.labelProfileEmail.setText(this.account.getEmail().trim());
+        }
     }
     protected void setActionLogout() {
         this.btnProfileLogout.setOnClickListener(e -> {
+            Session.remove("current-account");
             Intent i = new Intent(this.getContext(), LoginActivity.class);
             startActivity(i);
             this.getActivity().finish();
