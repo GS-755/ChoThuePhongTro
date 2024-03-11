@@ -17,13 +17,8 @@ import android.widget.Toast;
 
 import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.activities.signin.LoginActivity;
-import edu.nhom01.chothuetro.api.client.ApiClient;
 import edu.nhom01.chothuetro.models.person.Account;
-import edu.nhom01.chothuetro.models.person.User;
-import edu.nhom01.chothuetro.utils.Session;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import edu.nhom01.chothuetro.fragments.widgets.utils.Session;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -3,7 +3,7 @@ package edu.nhom01.chothuetro.models.person;
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
-import edu.nhom01.chothuetro.utils.StrProcessor;
+import edu.nhom01.chothuetro.fragments.widgets.utils.StrProcessor;
 
 public class User {
     @SerializedName("CCCD")

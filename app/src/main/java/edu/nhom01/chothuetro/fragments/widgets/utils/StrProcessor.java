@@ -1,4 +1,4 @@
-package edu.nhom01.chothuetro.utils;
+package edu.nhom01.chothuetro.fragments.widgets.utils;
 
 import android.util.Log;
 import java.text.DecimalFormat;

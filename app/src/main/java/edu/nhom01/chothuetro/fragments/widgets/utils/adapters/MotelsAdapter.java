@@ -1,4 +1,4 @@
-package edu.nhom01.chothuetro.utils.adapters;
+package edu.nhom01.chothuetro.fragments.widgets.utils.adapters;
 
 import android.content.Context;
 import android.view.View;
