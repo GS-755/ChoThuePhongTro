@@ -10,35 +10,32 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.sql.Date;
 import java.util.HashMap;
-
 import edu.nhom01.chothuetro.R;
-import edu.nhom01.chothuetro.data.person.AccountsData;
-import edu.nhom01.chothuetro.data.person.UsersData;
+import edu.nhom01.chothuetro.api.client.ApiClient;
+import edu.nhom01.chothuetro.fragments.widgets.DatePickerFragment;
 import edu.nhom01.chothuetro.models.person.Account;
 import edu.nhom01.chothuetro.models.person.User;
 import edu.nhom01.chothuetro.utils.StrProcessor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText txtRegisterCid;
-    private EditText txtRegisterName;
+    private EditText txtRegisterCid, txtRegisterName;
+    private DatePickerFragment datePickerFragment;
     private ImageView btnDob;
-    private EditText txtRegisterAddress;
-    private EditText txtRegisterUsrName;
-    private EditText txtRegisterPassword;
-    private EditText txtRegisterEmail;
+    private EditText txtRegisterAddress, txtRegisterUsrName;
+    private EditText txtRegisterPassword, txtRegisterEmail;
     private EditText txtRegisterPhone;
-    private RadioButton rbMale;
-    private RadioButton rbFemale;
-    private RadioButton rbCustomer;
-    private RadioButton rbRenter;
+    private RadioButton rbMale, rbFemale;
+    private RadioButton rbCustomer, rbRenter;
     private Button btnRegister;
 
     private void setComponents() {
         this.txtRegisterCid = findViewById(R.id.txtRegisterCid);
         this.txtRegisterName = findViewById(R.id.txtRegisterName);
+        this.datePickerFragment = new DatePickerFragment();
         this.btnDob = findViewById(R.id.btnDob);
         this.rbMale = findViewById(R.id.rbMale);
         this.rbFemale = findViewById(R.id.rbFemale);
@@ -51,64 +48,115 @@ public class RegisterActivity extends AppCompatActivity {
         this.rbRenter = findViewById(R.id.rbRenter);
         this.btnRegister = findViewById(R.id.btnRegisterAccount);
     }
+    private User collectUserInfo() {
+        User user = new User();
+        try {
+            user.setCid(this.txtRegisterCid.getText().toString());
+            String fullName = this.txtRegisterName.getText().toString();
+            HashMap<String, String>
+                    collectionName = StrProcessor.splitFullName(fullName);
+            String firstName = collectionName.get("first-name");
+            String lastName = collectionName.get("last-name");
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setDob(this.datePickerFragment.getDate());
+            if(this.rbFemale.isChecked()) {
+                user.setGender(0);
+            }
+            else {
+                user.setGender(1);
+            }
+            user.setAddress(this.txtRegisterAddress.getText().toString().trim());
+        }
+        catch(Exception ex) {
+            Log.d("INT_ERR", ex.getMessage());
+        }
+
+        return user;
+    }
+    private Account collectAccountInfo(String cid) {
+        Account account = new Account();
+        try {
+            account.setUserName(this.txtRegisterUsrName.
+                    getText().toString().trim());
+            account.setPassword(this.txtRegisterPassword.
+                    getText().toString());
+            account.setEmail(this.txtRegisterEmail.
+                    getText().toString().trim());
+            account.setPhone(this.txtRegisterPhone.
+                    getText().toString().trim());
+            if(this.rbRenter.isChecked()) {
+                account.setRoleId(1);
+            }
+            else {
+                account.setRoleId(0);
+            }
+            account.setCid(cid);
+        }
+        catch(Exception ex) {
+            Log.d("INT_ERR", ex.getMessage());
+        }
+
+        return account;
+    }
+    private void setActionDatePicker() {
+        this.btnDob.setOnClickListener(e -> {
+            this.datePickerFragment.
+                    show(this.getSupportFragmentManager(), "datePicker");
+        });
+    }
     private void setActionRegister() {
         this.btnRegister.setOnClickListener(e -> {
             try {
-                String fullName = this.txtRegisterName.getText().toString();
-                HashMap<String, String>
-                        collectionName = StrProcessor.trimFullName(fullName);
-                String firstName = collectionName.get("first_name");
-                String lastName = collectionName.get("last_name");
-
-                User user = new User();
-                user.setCid(this.txtRegisterCid.getText().toString());
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                user.setDob(Date.valueOf("2003-09-17"));
-                if(this.rbFemale.isChecked()) {
-                    user.setGender(0);
-                }
-                else {
-                    user.setGender(1);
-                }
-                user.setAddress(this.txtRegisterAddress.getText().toString().trim());
-                UsersData usersApi = new UsersData();
-                usersApi.setUser(user);
-                usersApi.createUser();
-                if(usersApi.isCompleted()) {
-                    Account account = new Account();
-                    account.setUserName(this.txtRegisterUsrName.
-                            getText().toString().trim());
-                    account.setPassword(this.txtRegisterPassword.
-                            getText().toString());
-                    account.setEmail(this.txtRegisterEmail.
-                            getText().toString().trim());
-                    account.setPhone(this.txtRegisterPhone.
-                            getText().toString().trim());
-                    if(this.rbRenter.isChecked()) {
-                        account.setRoleId(1);
+                User user = collectUserInfo();
+                Account account = collectAccountInfo(user.getCid());
+                Call<User> callRegisterUser = ApiClient.
+                        getInstance().getRoute().postUser(user);
+                callRegisterUser.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.isSuccessful()) {
+                            Call<Account> callRegisterAccount = ApiClient.getInstance().
+                                    getRoute().registerAccount(account);
+                            callRegisterAccount.enqueue(new Callback<Account>() {
+                                @Override
+                                public void onResponse(Call<Account> call,
+                                                       Response<Account> response) {
+                                    if(response.isSuccessful()) {
+                                        Intent i = new Intent(RegisterActivity.this,
+                                                LoginActivity.class);
+                                        i.putExtra("register-notification",
+                                                "Đăng ký thành công!");
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<Account> call, Throwable t) {
+                                    Log.d("API_ERR", t.getMessage());
+                                }
+                            });
+                        }
+                        else if(response.code() == 400) {
+                            Toast.makeText(RegisterActivity.this, "Vui lòng " +
+                                    "điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(response.code() == 409) {
+                            Toast.makeText(RegisterActivity.this, "Người dùng " +
+                                    "đã có trên hệ thống", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(RegisterActivity.this, String.format(
+                                    "Lỗi không xác định \n(mã lỗi: %d)",
+                                    response.code()), Toast.LENGTH_SHORT
+                            ).show();
+                        }
                     }
-                    else {
-                        account.setRoleId(0);
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.d("API_ERR", t.getMessage());
                     }
-                    account.setCid(usersApi.getUser().getCid());
-
-                    AccountsData accountsApi = new AccountsData();
-                    accountsApi.setAccount(account);
-                    accountsApi.createAccount();
-                    if(!accountsApi.getStatus()) {
-                        Toast.makeText(this,
-                                usersApi.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(this,
-                                usersApi.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
-                    Toast.makeText(this,
-                            usersApi.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+                });
             }
             catch(Exception ex) {
                 Log.d("INT_ERR", ex.getMessage());
@@ -121,6 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         setComponents();
+        setActionDatePicker();
         setActionRegister();
     }
 }

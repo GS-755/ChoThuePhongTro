@@ -2,22 +2,32 @@ package edu.nhom01.chothuetro.activities.signin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.nhom01.chothuetro.R;
-import edu.nhom01.chothuetro.data.person.AccountsData;
 import edu.nhom01.chothuetro.models.nodes.LoginNode;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView labelRegister, labelForgotPassword, labelFailToLogin;
     private EditText txtUsrName, txtPassword;
-    private AccountsData accountsData;
 
     private void setComponents() {
-        this.accountsData = new AccountsData();
+        try {
+            Intent i = this.getIntent();
+            String registerNotification = i.getStringExtra("register-notification");
+            if(!registerNotification.isEmpty()) {
+                Toast.makeText(this,
+                        registerNotification, Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch(NullPointerException ex) {
+            Log.d("SYS_ERR", ex.getMessage());
+        }
         this.txtUsrName = findViewById(R.id.txtUserName);
         this.txtPassword = findViewById(R.id.txtPassword);
         this.labelForgotPassword = findViewById(R.id.labelForgotPassword);
@@ -31,19 +41,23 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
         });
     }
-    private void setActionLogin() {
-        this.btnLogin.setOnClickListener(e -> {
+    private LoginNode collectLoginInfo() {
+        LoginNode loginNode = new LoginNode();
+        try {
             String userName = this.txtUsrName.getText().toString();
             String password = this.txtPassword.getText().toString();
-            LoginNode loginNode = new LoginNode(userName, password);
-            this.accountsData.setLoginNode(loginNode);
-            try {
-                this.accountsData.fetchData();
-                this.labelFailToLogin.setText(this.accountsData.getMessage());
-            }
-            catch(NullPointerException ex) {
-                this.labelFailToLogin.setText(ex.getMessage());
-            }
+            loginNode = new LoginNode(userName, password);
+        }
+        catch(Exception ex) {
+            Log.d("SYS_ERR", ex.getMessage());
+        }
+
+        return loginNode;
+    }
+    private void setActionLogin() {
+        this.btnLogin.setOnClickListener(e -> {
+            LoginNode loginNode = this.collectLoginInfo();
+
         });
     }
     private void setActionRegister() {
@@ -58,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         setComponents();
-        setActionForgotPassword();
         setActionLogin();
         setActionRegister();
+        setActionForgotPassword();
     }
 }

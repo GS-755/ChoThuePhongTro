@@ -2,27 +2,34 @@ package edu.nhom01.chothuetro.fragments.widgets;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import androidx.fragment.app.DialogFragment;
-import java.util.Calendar;
+import java.util.Date;
 
-public class DatePickerFragment extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+public class DatePickerFragment
+        extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    private Date date;
+
+    private void init() {
+        this.date = new Date();
+    }
+
+    public Date getDate() { return this.date; }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker.
-        final Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
+        this.init();
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new instance of DatePickerDialog and return it.
         return new DatePickerDialog(requireContext(), this, year, month, day);
     }
+
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        // Do something with the date the user picks.
+        this.date = new Date(year - 1900, month, day);
     }
 }
-

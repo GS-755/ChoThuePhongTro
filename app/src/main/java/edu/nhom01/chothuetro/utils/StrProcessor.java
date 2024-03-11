@@ -1,23 +1,32 @@
 package edu.nhom01.chothuetro.utils;
 
 import android.util.Log;
-
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public class StrProcessor {
-    public static HashMap<String, String> trimFullName(String fullName) {
+    public static HashMap<String, String> splitFullName(String fullName) {
         HashMap<String, String> splitedName = new HashMap<>();
         try {
-            String tmp = fullName.trim();
-            String[] finalTrim = tmp.split(" ");
-            splitedName.put("first_name", String.
-                    format("%s %s", finalTrim[0], finalTrim[1]));
-            splitedName.put("last_name", finalTrim[2]);
+            String firstName = "";
+            String[] trimmedNameArray = fullName.trim().split(" ");
+            int arrLength = trimmedNameArray.length;
+            for(int i = 0; i < arrLength - 1; i++) {
+                firstName += String.format("%s ", trimmedNameArray[i]);
+            }
+            splitedName.put("first-name", firstName.trim());
+            splitedName.put("last-name", trimmedNameArray[arrLength - 1]);
         }
         catch(NullPointerException ex) {
             Log.d("INT_ERR", ex.getMessage());
         }
 
         return splitedName;
+    }
+    public static String formatVnCurrency(double number) {
+        String pattern = "###,###.###";
+        DecimalFormat df = new DecimalFormat(pattern);
+
+        return df.format(number) + " đ";
     }
 }

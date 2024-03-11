@@ -75,4 +75,7 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+    public String getFullName() {
+        return String.format("%s %s", this.firstName.trim(), this.lastName.trim());
+    }
 }
