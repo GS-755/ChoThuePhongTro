@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemDefaultHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/n01_home"
+        android:title="Trang chủ" />
+    <item
+        android:id="@+id/itemDefaultExplore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/n01_explore"
+        android:title="Khám phá" />
+    <item
+        android:id="@+id/itemDefaultDeposit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/n01_booking"
+        android:title="LS Đặt cọc" />
+    <item
+        android:id="@+id/itemDefaultProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/n01_profile"
+        android:title="Tài khoản" />
+</menu>

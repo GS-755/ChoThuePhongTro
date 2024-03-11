@@ -1,31 +1,38 @@
 package edu.nhom01.chothuetro.models.transactions;
 
+import com.google.gson.annotations.SerializedName;
+
 public class VnPayReturn {
-    /*
-        public string TerminalID { get => this.terminalID; set => this.terminalID = value; }
-        public string ClientTransacID { get => this.clientTransacID; set => this.clientTransacID = value; }
-        public string ServerTransacID { get => this.serverTransacID; set => this.serverTransacID = value; }
-        public double PaymentAmount { get => this.paymentAmount; set => this.paymentAmount = value; }
-        public int TransacStatus { get => this.transacStatus; set => this.transacStatus = value; }
-        public string ReturnText { get => this.returnText; set => this.returnText = value; }
-        public string BankCode { get => this.bankCode; set => this.bankCode = value; }
-    */
+    @SerializedName("TerminalID")
     private String terminalId;
+    @SerializedName("ClientTransacID")
     private String clientTransactId;
+    @SerializedName("ServerTransacID")
     private String serverTransactId;
+    @SerializedName("PaymentAmount")
     private double paymentAmount;
+    @SerializedName("TransacStatus")
     private int transactionStatus;
+    @SerializedName("ReturnText")
     private String message;
+    @SerializedName("BankCode")
     private String bankCode;
 
     public VnPayReturn() { }
 
+    @SerializedName("TerminalID")
     public String getTerminalId() { return this.terminalId; }
+    @SerializedName("ClientTransacID")
     public String getClientTransactId() { return this.clientTransactId; }
+    @SerializedName("ServerTransacID")
     public String getServerTransactId() { return this.serverTransactId; }
+    @SerializedName("PaymentAmount")
     public double getPaymentAmount() { return this.paymentAmount; }
+    @SerializedName("TransacStatus")
     public int getTransactionStatus() { return this.transactionStatus; }
+    @SerializedName("ReturnText")
     public String getMessage() { return this.message; }
+    @SerializedName("BankCode")
     public String getBankCode() { return this.bankCode; }
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
