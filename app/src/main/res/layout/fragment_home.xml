@@ -41,11 +41,11 @@
                         android:paddingTop="15dp"
                         android:text="Nhà trọ gần đây"
                         android:textSize="20dp" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvRelateMotels"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp">
-                    </androidx.recyclerview.widget.RecyclerView>
+                        android:layout_height="150dp"></androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -59,10 +59,11 @@
                         android:paddingStart="20dp"
                         android:text="Phòng trọ mới"
                         android:textSize="20dp" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvNewestMotels"
-                        android:layout_width="200dp"
-                        android:layout_height="match_parent" />
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,10 +77,11 @@
                         android:paddingStart="20dp"
                         android:text="Tất cả phòng trọ"
                         android:textSize="20dp" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvAllMotels"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="216dp" />
 
                 </LinearLayout>
             </LinearLayout>

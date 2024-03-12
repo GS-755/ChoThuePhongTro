@@ -77,20 +77,25 @@ public class LoginActivity extends AppCompatActivity {
                     if(response.isSuccessful()) {
                         account = response.body();
                         Session.put("current-account", account);
-                        if(account.getRoleId() == 1) {
-                            Intent i = new Intent(LoginActivity.this,
-                                    DashboardActivity.class);
-                            i.putExtra("login-notification", "Đăng nhập thành công!");
-                            startActivity(i);
-                            finish();
-                        }
-                        else {
-                            Intent i = new Intent(LoginActivity.this,
-                                    HomeActivity.class);
-                            i.putExtra("login-notification", "Đăng nhập thành công!");
-                            startActivity(i);
-                            finish();
-                        }
+                        Intent i = new Intent(LoginActivity.this,
+                                HomeActivity.class);
+                        i.putExtra("login-notification", "Đăng nhập thành công!");
+                        startActivity(i);
+                        finish();
+//                        if(account.getRoleId() == 1) {
+//                            Intent i = new Intent(LoginActivity.this,
+//                                    DashboardActivity.class);
+//                            i.putExtra("login-notification", "Đăng nhập thành công!");
+//                            startActivity(i);
+//                            finish();
+//                        }
+//                        else {
+//                            Intent i = new Intent(LoginActivity.this,
+//                                    HomeActivity.class);
+//                            i.putExtra("login-notification", "Đăng nhập thành công!");
+//                            startActivity(i);
+//                            finish();
+//                        }
                     }
                     else if(response.code() == 400) {
                         Toast.makeText(LoginActivity.this, "Vui lòng " +

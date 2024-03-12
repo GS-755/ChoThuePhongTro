@@ -20,6 +20,8 @@ public class Motel {
     private String description;
     @SerializedName("HinhAnh")
     private String imageFileName;
+    @SerializedName("DiaChi")
+    private String address;
     @SerializedName("Base64Image")
     private String base64Image;
     @SerializedName("TenDangNhap")
@@ -47,6 +49,8 @@ public class Motel {
     public String getDescription() { return this.description; }
     @SerializedName("HinhAnh")
     public String getImageFileName() { return this.imageFileName; }
+    @SerializedName("DiaChi")
+    public String getAddress() { return this.address; }
     @SerializedName("Base64Image")
     public String getBase64Image() { return this.base64Image; }
     @SerializedName("TenDangNhap")
