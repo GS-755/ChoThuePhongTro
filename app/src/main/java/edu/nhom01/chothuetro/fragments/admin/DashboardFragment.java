@@ -1,14 +1,20 @@
 package edu.nhom01.chothuetro.fragments.admin;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import edu.nhom01.chothuetro.R;
+import edu.nhom01.chothuetro.activities.admin.motels.AddMotelActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,11 +62,30 @@ public class DashboardFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dashboard, container, false);
+    }
+    private Button btnAddMotel;
+    private RecyclerView rvDashboardMotels;
+
+    protected void setComponents(@NonNull View view) {
+        this.btnAddMotel = view.findViewById(R.id.btnAddMotel);
+        this.rvDashboardMotels = view.findViewById(R.id.rvDashboardMotels);
+    }
+    protected void setActionAddMotel() {
+        this.btnAddMotel.setOnClickListener(e -> {
+            Intent i = new Intent(this.getContext(), AddMotelActivity.class);
+            startActivity(i);
+        });
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setComponents(view);
+        setActionAddMotel();
+
+        super.onViewCreated(view, savedInstanceState);
     }
 }

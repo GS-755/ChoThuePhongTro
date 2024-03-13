@@ -1,14 +1,23 @@
 package edu.nhom01.chothuetro.fragments.home;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
 import edu.nhom01.chothuetro.R;
+import edu.nhom01.chothuetro.models.motels.Motel;
+import edu.nhom01.chothuetro.utils.Session;
+import edu.nhom01.chothuetro.utils.adapters.ExploreMotelsAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +71,37 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    RecyclerView rvAllMotels;
+    ArrayList<Motel> motelArrayList;
+    ExploreMotelsAdapter motelsAdapter;
+
+    public void fetchMotels() {
+        if((ArrayList<Motel>) Session.get("motels-data") != null) {
+            motelArrayList = (ArrayList<Motel>) Session.get("motels-data");
+        }
+    }
+    private void setComponents(@NonNull View view) {
+        motelArrayList = new ArrayList<>();
+        motelsAdapter = new ExploreMotelsAdapter();
+        rvAllMotels = view.findViewById(R.id.rvAllMotels);
+    }
+    protected void setDecorationAllMotels() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this.getContext(),
+                DividerItemDecoration.VERTICAL);
+        rvAllMotels.setLayoutManager(layoutManager);
+        rvAllMotels.addItemDecoration(itemDecoration);
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setComponents(view);
+        fetchMotels();
+        setDecorationAllMotels();
+        motelsAdapter = new ExploreMotelsAdapter(this.getContext(), motelArrayList);
+        rvAllMotels.setAdapter(motelsAdapter);
     }
 }

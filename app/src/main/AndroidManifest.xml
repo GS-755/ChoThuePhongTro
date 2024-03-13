@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChoThuêPhòngTrọ"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.admin.motels.EditMotelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.motels.AddMotelActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.motels.DetailsActivity"
             android:exported="false"

@@ -2,6 +2,7 @@ package edu.nhom01.chothuetro.utils.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,19 +19,19 @@ import edu.nhom01.chothuetro.models.motels.Motel;
 import edu.nhom01.chothuetro.utils.DisplayImage;
 import edu.nhom01.chothuetro.utils.StrProcessor;
 
-public class MotelsAdapter extends RecyclerView.Adapter<MotelsAdapter.ItemVH> {
+public class ExploreMotelsAdapter extends RecyclerView.Adapter<ExploreMotelsAdapter.ItemVH> {
     private Context context;
     private ArrayList<Motel> motelArrayList;
 
-    public MotelsAdapter(ArrayList<Motel> motelArrayList) {
-        this.motelArrayList = motelArrayList;
-    }
-    public MotelsAdapter(Context context, ArrayList<Motel> motelArrayList) {
+    public ExploreMotelsAdapter() { }
+    public ExploreMotelsAdapter(Context context, ArrayList<Motel> motelArrayList) {
         this.context = context;
         this.motelArrayList = motelArrayList;
     }
 
-    public Context getContext() { return this.context; }
+    public Context getContext() {
+        return this.context;
+    }
     public ArrayList<Motel> getMotelArrayList() {
         return this.motelArrayList;
     }
@@ -44,7 +45,10 @@ public class MotelsAdapter extends RecyclerView.Adapter<MotelsAdapter.ItemVH> {
     @NonNull
     @Override
     public ItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(this.context).
+                inflate(R.layout.layout_all_motels, parent, false);
+
+        return new ItemVH(view);
     }
 
     @Override
@@ -73,8 +77,8 @@ public class MotelsAdapter extends RecyclerView.Adapter<MotelsAdapter.ItemVH> {
         return this.motelArrayList.size();
     }
 
-    public static final class ItemVH extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    public static final class ItemVH
+            extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView imgMotel;
         private TextView labelMotelTitle, labelMotelPublisher, labelMotelArea;
         private TextView labelMotelPrice;

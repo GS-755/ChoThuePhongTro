@@ -29,7 +29,10 @@ public class Motel {
     @SerializedName("MaTT")
     private int idStatus;
 
-    public Motel() { }
+    public Motel() {
+        this.imageFileName = "";
+        this.base64Image = "";
+    }
 
     @SerializedName("MaPT")
     public int getMotelId() { return this.motelId; }
