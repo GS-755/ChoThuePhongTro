@@ -51,7 +51,12 @@ public class Motel {
     @SerializedName("HinhAnh")
     public String getImageFileName() { return this.imageFileName; }
     @SerializedName("Base64Image")
-    public String getBase64Image() { return this.base64Image; }
+    public String getBase64Image() {
+        if(this.base64Image == null) {
+            return "";
+        }
+        return this.base64Image;
+    }
     @SerializedName("TenDangNhap")
     public String getUserName() { return this.userName; }
     @SerializedName("MaVT")
@@ -83,7 +88,13 @@ public class Motel {
         this.imageFileName = imageFileName;
     }
     public void setBase64Image(String base64Image) {
-        this.base64Image = base64Image;
+        if(base64Image != null && this.base64Image.length() > 0) {
+            this.base64Image = base64Image;
+
+            return;
+        }
+
+        this.base64Image = "";
     }
     public void setUserName(String userName) {
         this.userName = userName;

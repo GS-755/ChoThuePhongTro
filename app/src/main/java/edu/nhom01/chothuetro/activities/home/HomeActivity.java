@@ -11,15 +11,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-
 import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.api.client.ApiClient;
 import edu.nhom01.chothuetro.fragments.home.DepositFragment;
 import edu.nhom01.chothuetro.fragments.home.ExploreFragment;
-import edu.nhom01.chothuetro.fragments.home.HomeFragment;
 import edu.nhom01.chothuetro.fragments.home.ProfileFragment;
-import edu.nhom01.chothuetro.models.motels.Motel;
 import edu.nhom01.chothuetro.models.person.Account;
 import edu.nhom01.chothuetro.models.person.User;
 import edu.nhom01.chothuetro.utils.Session;
@@ -30,27 +26,8 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity {
     private Fragment fragment;
     private BottomNavigationView homeBottomNav;
-    private User user;
-    ArrayList<Motel> motelArrayList;
+    User user;
 
-    private void fetchMotelsData() {
-        motelArrayList = new ArrayList<>();
-        Call<ArrayList<Motel>> callMotel = ApiClient.getInstance().getRoute().getMotels();
-        callMotel.enqueue(new Callback<ArrayList<Motel>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Motel>> call,
-                                   Response<ArrayList<Motel>> response) {
-                if(response.isSuccessful()) {
-                    motelArrayList = response.body();
-                    Session.put("motels-data", response.body());
-                }
-            }
-            @Override
-            public void onFailure(Call<ArrayList<Motel>> call, Throwable t) {
-                Log.e("API_ERR", t.getMessage());
-            }
-        });
-    }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frameHome, fragment);
@@ -68,23 +45,19 @@ public class HomeActivity extends AppCompatActivity {
         catch(NullPointerException ex) {
             Log.d("SYS_ERR", ex.getMessage());
         }
-        fetchMotelsData();
         this.user = new User();
-        this.fragment = new HomeFragment();
+        this.fragment = new ExploreFragment();
         this.homeBottomNav = findViewById(R.id.homeBottomNav);
         this.loadFragment(this.fragment);
     }
     private void setActionBottomNav() {
         this.homeBottomNav.setOnItemSelectedListener(e -> {
             int id = e.getItemId();
-            if(id == R.id.itemDashboardMotels) {
-                this.fragment = new ExploreFragment();
-            }
-            else if(id == R.id.itemDashboardTransacts) {
+            if(id == R.id.itemDashboardTransacts) {
                 this.fragment = new DepositFragment();
             }
             else if (id == R.id.itemDashboardSettings) {
-                Account account = (Account) Session.get("current-account");
+                Account account = (Account)Session.get("current-account");
                 String cid = account.getCid().trim();
                 Call<User> callUser = ApiClient.
                         getInstance().getRoute().getUser(cid);
@@ -104,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
                 this.fragment = new ProfileFragment();
             }
             else {
-                this.fragment = new HomeFragment();
+                this.fragment = new ExploreFragment();
             }
             this.loadFragment(this.fragment);
 

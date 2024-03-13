@@ -1,6 +1,11 @@
 package edu.nhom01.chothuetro.fragments.home;
 
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,16 +14,17 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import java.io.IOException;
 import java.util.ArrayList;
 
 import edu.nhom01.chothuetro.R;
+import edu.nhom01.chothuetro.api.client.ApiClient;
 import edu.nhom01.chothuetro.models.motels.Motel;
 import edu.nhom01.chothuetro.utils.Session;
 import edu.nhom01.chothuetro.utils.adapters.ExploreMotelsAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +76,10 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.
+                Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_explore, container, false);
     }
@@ -77,6 +87,29 @@ public class ExploreFragment extends Fragment {
     ArrayList<Motel> motelArrayList;
     ExploreMotelsAdapter exploreMotelsAdapter;
     RecyclerView rvExploreMotels;
+    Call<ArrayList<Motel>> callMotel;
+
+    public void fetchMotels() {
+        callMotel = ApiClient.
+                getInstance().getRoute().getMotels();
+        callMotel.enqueue(new Callback<ArrayList<Motel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Motel>> call, Response<ArrayList<Motel>> response) {
+                if(response.isSuccessful()) {
+                    for(Motel item : response.body()) {
+                        motelArrayList.add(item);
+                    }
+                    exploreMotelsAdapter = new ExploreMotelsAdapter(getContext(), motelArrayList);
+                    rvExploreMotels.setAdapter(exploreMotelsAdapter);
+                    exploreMotelsAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Motel>> call, Throwable t) {
+                Log.e("API_ERR", t.getMessage());
+            }
+        });
+    }
     public void setComponents(@NonNull View view) {
         motelArrayList = new ArrayList<>();
         exploreMotelsAdapter = new ExploreMotelsAdapter();
@@ -90,10 +123,20 @@ public class ExploreFragment extends Fragment {
         rvExploreMotels.setLayoutManager(layoutManager);
         rvExploreMotels.addItemDecoration(itemDecoration);
     }
-    public void fetchContentMotels() {
-        motelArrayList = (ArrayList<Motel>) Session.get("motels-data");
-        exploreMotelsAdapter = new ExploreMotelsAdapter(getContext(), motelArrayList);
-        rvExploreMotels.setAdapter(exploreMotelsAdapter);
+    public void assignContentMotels() {
+        try {
+            if(motelArrayList.size() > 0) {
+                exploreMotelsAdapter = new ExploreMotelsAdapter(getContext(), motelArrayList);
+                rvExploreMotels.setAdapter(exploreMotelsAdapter);
+                Log.i("SYS_CALL", "Adapter assigned " +
+                        "(ExploreFragment) with ArrayList<Motel> (size > 0).");
+                Log.i("SYS_CALL", String.format("%d", motelArrayList.size()));
+            }
+        }
+        catch(Exception ex) {
+            Log.e("INT_ERR", ex.getMessage());
+            ex.printStackTrace();
+        }
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -101,6 +144,7 @@ public class ExploreFragment extends Fragment {
 
         setComponents(view);
         setExploreMotelsDecoration();
-        fetchContentMotels();
+        fetchMotels();
+        // assignContentMotels();
     }
 }
