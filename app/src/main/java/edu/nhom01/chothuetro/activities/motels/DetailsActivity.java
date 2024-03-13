@@ -10,9 +10,16 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.api.client.ApiClient;
 import edu.nhom01.chothuetro.models.motels.Motel;
+import edu.nhom01.chothuetro.models.person.Account;
+import edu.nhom01.chothuetro.models.transactions.Transaction;
+import edu.nhom01.chothuetro.utils.DisplayImage;
+import edu.nhom01.chothuetro.utils.RandomID;
+import edu.nhom01.chothuetro.utils.Session;
 import edu.nhom01.chothuetro.utils.StrProcessor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +53,7 @@ public class DetailsActivity extends AppCompatActivity {
         this.labelDetailsTitle = findViewById(R.id.labelDetailsTitle);
         this.labelDetailsPrice = findViewById(R.id.labelDetailsPrice);
         this.labelDetailsDeposit = findViewById(R.id.labelDetailsDeposit);
+        this.labelDetailsPublisher = findViewById(R.id.labelDetailsPublisher);
         this.labelDetailsArea = findViewById(R.id.labelDetailsArea);
         this.labelDetailsLocation = findViewById(R.id.labelDetailsLocation);
         this.labelDetailsAddress = findViewById(R.id.labelDetailsAddress);
@@ -62,6 +70,7 @@ public class DetailsActivity extends AppCompatActivity {
                 public void onResponse(Call<Motel> call, Response<Motel> response) {
                     if(response.isSuccessful()) {
                         motel = response.body();
+                        setMotelDetails();
                     }
                 }
                 @Override
@@ -72,13 +81,43 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
     private void setMotelDetails() {
-        this.labelDetailsTitle.setText(motel.getTitle());
-        this.labelDetailsPrice.setText(StrProcessor.formatVnCurrency(motel.getFullAmount()));
-        this.labelDetailsDeposit.setText(StrProcessor.formatVnCurrency(motel.getDepositAmount()));
-        this.labelDetailsArea.setText(String.
-                format("%s%.1f m2", this.labelDetailsArea.getText().toString(), motel.getArea()));
-        this.labelDetailsLocation.setText(String.format("%d", motel.getIdLocation()));
-        // this.labelDetailsAddress.setText(motel.getAddress());
+        try {
+            String motelImageUrl = DisplayImage.getMotelImageUrl(motel.getMotelId());
+            imgMotelDetails.setImageBitmap(DisplayImage.getMotelImageBitmap(motelImageUrl));
+        }
+        catch(Exception ex) {
+            Log.e("SYS_ERR", ex.getMessage());
+        }
+        labelDetailsTitle.setText(motel.getTitle());
+        labelDetailsPrice.setText(StrProcessor.formatVnCurrency(motel.getFullAmount()));
+        labelDetailsDeposit.setText(StrProcessor.formatVnCurrency(motel.getDepositAmount()));
+        labelDetailsArea.setText(String.format("%.1f m2", motel.getArea()));
+        labelDetailsPublisher.setText(motel.getUserName());
+    }
+    private void setActionPay() {
+        this.btnPay.setOnClickListener(e -> {
+            try {
+                Account account = (Account) Session.get("current-account");
+                Transaction transaction = new Transaction();
+                transaction.setTransactionId(RandomID.get(8));
+                transaction.setTransactionDate(new Date());
+                transaction.setUserName(account.getUserName().trim());
+                transaction.setMotelId(motelId);
+                if(rdFullPayment.isChecked()) {
+                    transaction.setIdTransactionType(2);
+                }
+                else {
+                    transaction.setIdTransactionType(1);
+                }
+
+                Session.put("transaction-item", transaction);
+                Intent i = new Intent(this, VnPayActivity.class);
+                startActivity(i);
+            }
+            catch(Exception ex) {
+                Log.e("TRANS_ERR", ex.getMessage());
+            }
+        });
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,5 +127,6 @@ public class DetailsActivity extends AppCompatActivity {
         setComponents();
         fetchMotelDetails();
         setMotelDetails();
+        setActionPay();
     }
 }

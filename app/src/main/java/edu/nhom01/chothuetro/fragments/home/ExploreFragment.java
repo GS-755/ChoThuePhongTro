@@ -123,21 +123,6 @@ public class ExploreFragment extends Fragment {
         rvExploreMotels.setLayoutManager(layoutManager);
         rvExploreMotels.addItemDecoration(itemDecoration);
     }
-    public void assignContentMotels() {
-        try {
-            if(motelArrayList.size() > 0) {
-                exploreMotelsAdapter = new ExploreMotelsAdapter(getContext(), motelArrayList);
-                rvExploreMotels.setAdapter(exploreMotelsAdapter);
-                Log.i("SYS_CALL", "Adapter assigned " +
-                        "(ExploreFragment) with ArrayList<Motel> (size > 0).");
-                Log.i("SYS_CALL", String.format("%d", motelArrayList.size()));
-            }
-        }
-        catch(Exception ex) {
-            Log.e("INT_ERR", ex.getMessage());
-            ex.printStackTrace();
-        }
-    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -145,6 +130,5 @@ public class ExploreFragment extends Fragment {
         setComponents(view);
         setExploreMotelsDecoration();
         fetchMotels();
-        // assignContentMotels();
     }
 }

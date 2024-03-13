@@ -7,6 +7,7 @@ public class VnPayNode {
     @SerializedName("PaymentLink")
     private String valueNode;
 
+    public VnPayNode() { }
     public VnPayNode(String valueNode) { }
 
     public String getValueNode() { return this.valueNode; }

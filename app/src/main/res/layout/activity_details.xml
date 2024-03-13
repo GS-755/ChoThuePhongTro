@@ -26,9 +26,11 @@
                     android:src="@drawable/n01_motel" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="15dp"
                 android:orientation="vertical">
 
 
@@ -65,11 +67,12 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/textView26"
-                                android:layout_width="50dp"
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Đặt cọc (30%): "
@@ -77,7 +80,7 @@
 
                             <TextView
                                 android:id="@+id/labelDetailsDeposit"
-                                android:layout_width="300dp"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:text="300.000 đ"
                                 android:textSize="20dp" />
@@ -145,13 +148,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                </LinearLayout>
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:orientation="horizontal">
-
                     <TextView
                         android:id="@+id/textView24"
                         android:layout_width="match_parent"
@@ -161,19 +157,25 @@
                         android:text="Chọn loại thanh toán: "
                         android:textSize="16dp" />
 
-                    <RadioButton
-                        android:id="@+id/rdDeposit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:checked="true"
-                        android:text="Đặt cọc 30%" />
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/rdFullPayment"
-                        android:layout_width="200dp"
-                        android:layout_height="match_parent"
-                        android:text="Thanh toán toàn bộ" />
-                </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/rdDeposit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:checked="true"
+                            android:text="Đặt cọc 30%" />
+
+                        <RadioButton
+                            android:id="@+id/rdFullPayment"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:text="Thanh toán toàn bộ" />
+                    </RadioGroup>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
