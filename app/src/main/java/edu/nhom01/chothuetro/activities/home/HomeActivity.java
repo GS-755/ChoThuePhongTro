@@ -15,11 +15,10 @@ import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.api.client.ApiClient;
 import edu.nhom01.chothuetro.fragments.home.DepositFragment;
 import edu.nhom01.chothuetro.fragments.home.ExploreFragment;
-import edu.nhom01.chothuetro.fragments.home.HomeFragment;
 import edu.nhom01.chothuetro.fragments.home.ProfileFragment;
 import edu.nhom01.chothuetro.models.person.Account;
 import edu.nhom01.chothuetro.models.person.User;
-import edu.nhom01.chothuetro.fragments.widgets.utils.Session;
+import edu.nhom01.chothuetro.utils.Session;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +26,7 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity {
     private Fragment fragment;
     private BottomNavigationView homeBottomNav;
-    private User user;
+    User user;
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
@@ -47,21 +46,18 @@ public class HomeActivity extends AppCompatActivity {
             Log.d("SYS_ERR", ex.getMessage());
         }
         this.user = new User();
-        this.fragment = new HomeFragment();
+        this.fragment = new ExploreFragment();
         this.homeBottomNav = findViewById(R.id.homeBottomNav);
         this.loadFragment(this.fragment);
     }
     private void setActionBottomNav() {
         this.homeBottomNav.setOnItemSelectedListener(e -> {
             int id = e.getItemId();
-            if(id == R.id.itemDefaultExplore) {
-                this.fragment = new ExploreFragment();
-            }
-            else if(id == R.id.itemDefaultDeposit) {
+            if(id == R.id.itemDashboardTransacts) {
                 this.fragment = new DepositFragment();
             }
-            else if (id == R.id.itemDefaultProfile) {
-                Account account = (Account) Session.get("current-account");
+            else if (id == R.id.itemDashboardSettings) {
+                Account account = (Account)Session.get("current-account");
                 String cid = account.getCid().trim();
                 Call<User> callUser = ApiClient.
                         getInstance().getRoute().getUser(cid);
@@ -81,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
                 this.fragment = new ProfileFragment();
             }
             else {
-                this.fragment = new HomeFragment();
+                this.fragment = new ExploreFragment();
             }
             this.loadFragment(this.fragment);
 

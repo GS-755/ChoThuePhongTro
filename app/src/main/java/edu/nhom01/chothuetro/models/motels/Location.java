@@ -1,5 +1,7 @@
 package edu.nhom01.chothuetro.models.motels;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Location {
@@ -33,5 +35,11 @@ public class Location {
     }
     public void setLongtitude(double longtitude) {
         this.longtitude = longtitude;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.getNameLocation().trim();
     }
 }

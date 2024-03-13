@@ -42,7 +42,7 @@ public class Transaction {
     @SerializedName("LoaiGiaoDich")
     public TransactionType getTransactionType() { return this.transactionType; }
     @SerializedName("PhongTro")
-    private Motel getMotel() { return this.motel; }
+    public Motel getMotel() { return this.motel; }
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }

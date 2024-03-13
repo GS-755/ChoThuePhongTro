@@ -8,13 +8,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
 import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.activities.admin.DashboardActivity;
 import edu.nhom01.chothuetro.activities.home.HomeActivity;
 import edu.nhom01.chothuetro.api.client.ApiClient;
+import edu.nhom01.chothuetro.models.motels.Motel;
 import edu.nhom01.chothuetro.models.nodes.LoginNode;
 import edu.nhom01.chothuetro.models.person.Account;
-import edu.nhom01.chothuetro.fragments.widgets.utils.Session;
+import edu.nhom01.chothuetro.utils.Session;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,6 +110,9 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("API_ERR", t.getMessage());
                 }
             });
+            if(callLoginAccount.isExecuted()) {
+                Log.i("API_CALL", "Call login executed.");
+            }
         });
     }
     private void setActionRegister() {

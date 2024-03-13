@@ -29,7 +29,10 @@ public class Motel {
     @SerializedName("MaTT")
     private int idStatus;
 
-    public Motel() { }
+    public Motel() {
+        this.imageFileName = "";
+        this.base64Image = "";
+    }
 
     @SerializedName("MaPT")
     public int getMotelId() { return this.motelId; }
@@ -48,7 +51,12 @@ public class Motel {
     @SerializedName("HinhAnh")
     public String getImageFileName() { return this.imageFileName; }
     @SerializedName("Base64Image")
-    public String getBase64Image() { return this.base64Image; }
+    public String getBase64Image() {
+        if(this.base64Image == null) {
+            return "";
+        }
+        return this.base64Image;
+    }
     @SerializedName("TenDangNhap")
     public String getUserName() { return this.userName; }
     @SerializedName("MaVT")

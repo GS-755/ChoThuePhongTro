@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemDashboardMotels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/n01_explore"
+        android:title="Phòng trọ" />
+    <item
+        android:id="@+id/itemDashboardTransacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/n01_booking"
+        android:title="Giao dịch" />
+    <item
+        android:id="@+id/itemDashboardSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/n01_profile"
+        android:title="Tài khoản" />
+</menu>

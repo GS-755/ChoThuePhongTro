@@ -1,4 +1,4 @@
-package edu.nhom01.chothuetro.fragments.widgets.utils;
+package edu.nhom01.chothuetro.utils;
 
 import android.util.Log;
 import java.text.DecimalFormat;
@@ -28,6 +28,9 @@ public class StrProcessor {
         DecimalFormat df = new DecimalFormat(pattern);
 
         return df.format(number) + " đ";
+    }
+    public static String formatArea(double area) {
+        return String.format("%.1f", area);
     }
     public static String getStrChineseDate(int year, int month, int day) {
         return String.format("%d-%d-%d", year, month, day);

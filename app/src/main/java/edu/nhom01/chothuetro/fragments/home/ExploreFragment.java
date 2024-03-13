@@ -1,14 +1,30 @@
 package edu.nhom01.chothuetro.fragments.home;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 import edu.nhom01.chothuetro.R;
+import edu.nhom01.chothuetro.api.client.ApiClient;
+import edu.nhom01.chothuetro.models.motels.Motel;
+import edu.nhom01.chothuetro.utils.Session;
+import edu.nhom01.chothuetro.utils.adapters.ExploreMotelsAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +76,59 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.
+                Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_explore, container, false);
+    }
+
+    ArrayList<Motel> motelArrayList;
+    ExploreMotelsAdapter exploreMotelsAdapter;
+    RecyclerView rvExploreMotels;
+    Call<ArrayList<Motel>> callMotel;
+
+    public void fetchMotels() {
+        callMotel = ApiClient.
+                getInstance().getRoute().getMotels();
+        callMotel.enqueue(new Callback<ArrayList<Motel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Motel>> call, Response<ArrayList<Motel>> response) {
+                if(response.isSuccessful()) {
+                    for(Motel item : response.body()) {
+                        motelArrayList.add(item);
+                    }
+                    exploreMotelsAdapter = new ExploreMotelsAdapter(getContext(), motelArrayList);
+                    rvExploreMotels.setAdapter(exploreMotelsAdapter);
+                    exploreMotelsAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Motel>> call, Throwable t) {
+                Log.e("API_ERR", t.getMessage());
+            }
+        });
+    }
+    public void setComponents(@NonNull View view) {
+        motelArrayList = new ArrayList<>();
+        exploreMotelsAdapter = new ExploreMotelsAdapter();
+        rvExploreMotels = view.findViewById(R.id.rvExploreAllMotels);
+    }
+    public void setExploreMotelsDecoration() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this.getContext(),
+                DividerItemDecoration.VERTICAL);
+        rvExploreMotels.setLayoutManager(layoutManager);
+        rvExploreMotels.addItemDecoration(itemDecoration);
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setComponents(view);
+        setExploreMotelsDecoration();
+        fetchMotels();
     }
 }

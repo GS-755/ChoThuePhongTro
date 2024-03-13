@@ -18,7 +18,7 @@ import android.widget.Toast;
 import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.activities.signin.LoginActivity;
 import edu.nhom01.chothuetro.models.person.Account;
-import edu.nhom01.chothuetro.fragments.widgets.utils.Session;
+import edu.nhom01.chothuetro.utils.Session;
 
 /**
  * A simple {@link Fragment} subclass.
