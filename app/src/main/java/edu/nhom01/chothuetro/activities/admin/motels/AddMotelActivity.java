@@ -6,18 +6,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -47,7 +43,7 @@ public class AddMotelActivity extends AppCompatActivity {
     private void loadImageChooser(Fragment fragment) {
         FragmentTransaction transaction = this.getSupportFragmentManager().
                 beginTransaction();
-        transaction.replace(R.id.frameImgChooser, fragment);
+        transaction.replace(R.id.frameEdtImgChooser, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -55,12 +51,12 @@ public class AddMotelActivity extends AppCompatActivity {
         this.locationArrayList = new ArrayList<>();
         this.imgChooserFragment = new FileChooserFragment();
         this.loadImageChooser(this.imgChooserFragment);
-        this.txtCurdMotelTitle = findViewById(R.id.txtCrudMotelTitle);
-        this.txtCrudMotelArea = findViewById(R.id.txtCrudMotelArea);
-        this.txtCrudMotelAmount = findViewById(R.id.txtCrudMotelAmount);
-        this.txtCrudMotelDesc = findViewById(R.id.txtCrudMotelDesc);
-        this.spnCrudMotelLocation = findViewById(R.id.spnCrudMotelLocation);
-        this.btnCrudAddMotel = findViewById(R.id.btnCrudMotel);
+        this.txtCurdMotelTitle = findViewById(R.id.txtEditMotelTitle);
+        this.txtCrudMotelArea = findViewById(R.id.txtEditMotelArea);
+        this.txtCrudMotelAmount = findViewById(R.id.txtEditMotelAmount);
+        this.txtCrudMotelDesc = findViewById(R.id.txtEditMotelDesc);
+        this.spnCrudMotelLocation = findViewById(R.id.spnEditMotelLocation);
+        this.btnCrudAddMotel = findViewById(R.id.btnUpdateMotel);
     }
     private void setContentComboBox() {
         int spinnerItem = android.R.layout.simple_spinner_item;
@@ -112,6 +108,11 @@ public class AddMotelActivity extends AppCompatActivity {
                             finish();
                             Toast.makeText(AddMotelActivity.this,
                                     "Thêm trọ thành công!", Toast.LENGTH_SHORT).show();
+                            try {
+                                Thread.sleep(1200);
+                            } catch (InterruptedException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         }
                     }
                     @Override

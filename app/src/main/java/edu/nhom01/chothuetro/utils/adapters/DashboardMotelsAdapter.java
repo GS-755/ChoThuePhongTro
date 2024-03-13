@@ -14,17 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import edu.nhom01.chothuetro.R;
-import edu.nhom01.chothuetro.activities.motels.DetailsActivity;
+import edu.nhom01.chothuetro.activities.admin.motels.EditMotelActivity;
 import edu.nhom01.chothuetro.models.motels.Motel;
 import edu.nhom01.chothuetro.utils.DisplayImage;
 import edu.nhom01.chothuetro.utils.StrProcessor;
 
-public class ExploreMotelsAdapter extends RecyclerView.Adapter<ExploreMotelsAdapter.ItemVH> {
+public class DashboardMotelsAdapter extends RecyclerView.Adapter<DashboardMotelsAdapter.ItemVH> {
     private Context context;
     private ArrayList<Motel> motelArrayList;
 
-    public ExploreMotelsAdapter() { }
-    public ExploreMotelsAdapter(Context context, ArrayList<Motel> motelArrayList) {
+    public DashboardMotelsAdapter() { }
+    public DashboardMotelsAdapter(Context context, ArrayList<Motel> motelArrayList) {
         this.context = context;
         this.motelArrayList = motelArrayList;
     }
@@ -46,7 +46,7 @@ public class ExploreMotelsAdapter extends RecyclerView.Adapter<ExploreMotelsAdap
     @Override
     public ItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(this.context).
-                inflate(R.layout.layout_all_motels, parent, false);
+                inflate(R.layout.layout_dashboard_motels, parent, false);
 
         return new ItemVH(view);
     }
@@ -65,10 +65,9 @@ public class ExploreMotelsAdapter extends RecyclerView.Adapter<ExploreMotelsAdap
                 StrProcessor.formatVnCurrency(item.getFullAmount())
         );
         holder.setItemClickListener((view, position1, isLongClick) -> {
-            Intent i = new Intent(this.context, DetailsActivity.class);
-            i.putExtra("motel-id", item.getMotelId());
-            i.putExtra("motel-publisher", item.getUserName());
-            this.context.startActivity(i);
+            Intent i = new Intent(this.context, EditMotelActivity.class);
+            i.putExtra("ds-hit-motel", item.getMotelId());
+            context.startActivity(i);
         });
     }
 
@@ -86,6 +85,7 @@ public class ExploreMotelsAdapter extends RecyclerView.Adapter<ExploreMotelsAdap
 
         public ItemVH(@NonNull View itemView) {
             super(itemView);
+
             this.imgMotel = itemView.findViewById(R.id.imgDsMotel);
             this.labelMotelTitle = itemView.findViewById(R.id.labelDsMotelTitle);
             this.labelMotelPublisher = itemView.findViewById(R.id.labelDsMotelPublisher);
@@ -93,7 +93,6 @@ public class ExploreMotelsAdapter extends RecyclerView.Adapter<ExploreMotelsAdap
             this.labelMotelPrice = itemView.findViewById(R.id.labelDsMotelPrice);
             itemView.setOnClickListener(this);
         }
-
         public void setItemClickListener(ItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
         }
@@ -103,3 +102,4 @@ public class ExploreMotelsAdapter extends RecyclerView.Adapter<ExploreMotelsAdap
         }
     }
 }
+

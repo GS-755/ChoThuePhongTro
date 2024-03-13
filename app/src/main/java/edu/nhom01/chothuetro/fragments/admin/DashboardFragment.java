@@ -6,15 +6,29 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.activities.admin.motels.AddMotelActivity;
+import edu.nhom01.chothuetro.api.client.ApiClient;
+import edu.nhom01.chothuetro.models.motels.Motel;
+import edu.nhom01.chothuetro.models.person.Account;
+import edu.nhom01.chothuetro.utils.Session;
+import edu.nhom01.chothuetro.utils.adapters.DashboardMotelsAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,24 +82,62 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
-    private Button btnAddMotel;
-    private RecyclerView rvDashboardMotels;
+    Button btnAddMotel;
+    ArrayList<Motel> motelArrayList;
+    DashboardMotelsAdapter dashboardMotelsAdapter;
+    TextView labelDashboardAccount;
+    Account account;
+    RecyclerView rvDashboardMotels;
 
     protected void setComponents(@NonNull View view) {
-        this.btnAddMotel = view.findViewById(R.id.btnAddMotel);
-        this.rvDashboardMotels = view.findViewById(R.id.rvDashboardMotels);
+        motelArrayList = new ArrayList<>();
+        account = (Account) Session.get("current-account");
+        labelDashboardAccount = view.findViewById(R.id.labelDashboardAccount);
+        labelDashboardAccount.setText(String.format("@%s", account.getUserName()));
+        btnAddMotel = view.findViewById(R.id.btnAddMotel);
+        rvDashboardMotels = view.findViewById(R.id.rvDashboardMotels);
     }
     protected void setActionAddMotel() {
-        this.btnAddMotel.setOnClickListener(e -> {
+        btnAddMotel.setOnClickListener(e -> {
             Intent i = new Intent(this.getContext(), AddMotelActivity.class);
             startActivity(i);
         });
     }
+    public void setContentDashboardMotels() {
+        Call<ArrayList<Motel>> callMotel = ApiClient.
+                getInstance().getRoute().getMotels();
+        callMotel.enqueue(new Callback<ArrayList<Motel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Motel>> call, Response<ArrayList<Motel>> response) {
+                if(response.isSuccessful()) {
+                    for(Motel item : response.body()) {
+                        if(item.getUserName().trim().equals(account.getUserName().trim())) {
+                            motelArrayList.add(item);
+                        }
+                    }
+                    dashboardMotelsAdapter = new DashboardMotelsAdapter(getContext(), motelArrayList);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                            LinearLayoutManager.VERTICAL, false);
+                    DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(),
+                            DividerItemDecoration.VERTICAL);
+                    rvDashboardMotels.setLayoutManager(layoutManager);
+                    rvDashboardMotels.addItemDecoration(itemDecoration);
+                    rvDashboardMotels.setAdapter(dashboardMotelsAdapter);
+                    dashboardMotelsAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Motel>> call, Throwable t) {
+                Log.e("API_ERR", t.getMessage());
+            }
+        });
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        setComponents(view);
-        setActionAddMotel();
-
         super.onViewCreated(view, savedInstanceState);
+
+        setComponents(view);
+        setContentDashboardMotels();
+        setActionAddMotel();
     }
 }
