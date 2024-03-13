@@ -19,7 +19,7 @@ import edu.nhom01.chothuetro.fragments.home.HomeFragment;
 import edu.nhom01.chothuetro.fragments.home.ProfileFragment;
 import edu.nhom01.chothuetro.models.person.Account;
 import edu.nhom01.chothuetro.models.person.User;
-import edu.nhom01.chothuetro.fragments.widgets.utils.Session;
+import edu.nhom01.chothuetro.utils.Session;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,13 +54,13 @@ public class HomeActivity extends AppCompatActivity {
     private void setActionBottomNav() {
         this.homeBottomNav.setOnItemSelectedListener(e -> {
             int id = e.getItemId();
-            if(id == R.id.itemDefaultExplore) {
+            if(id == R.id.itemDashboardMotels) {
                 this.fragment = new ExploreFragment();
             }
-            else if(id == R.id.itemDefaultDeposit) {
+            else if(id == R.id.itemDashboardTransacts) {
                 this.fragment = new DepositFragment();
             }
-            else if (id == R.id.itemDefaultProfile) {
+            else if (id == R.id.itemDashboardSettings) {
                 Account account = (Account) Session.get("current-account");
                 String cid = account.getCid().trim();
                 Call<User> callUser = ApiClient.
