@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_frag_dep"
     tools:context=".fragments.home.DepositFragment">
 
     <LinearLayout
@@ -17,13 +18,15 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/open_sans_extrabold"
             android:text="Lịch sử giao dịch"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView

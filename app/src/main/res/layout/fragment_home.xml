@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_frag_dep"
     tools:context=".fragments.home.HomeFragment">
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,6 +12,7 @@
         <SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content" />
         <ScrollView
             android:layout_width="match_parent"
@@ -26,6 +28,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -38,6 +41,7 @@
                         android:layout_marginBottom="10dp"
                         android:paddingStart="20dp"
                         android:paddingTop="15dp"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:text="Nhà trọ gần đây"
                         android:textSize="20dp" />
                     <androidx.recyclerview.widget.RecyclerView
@@ -57,6 +61,7 @@
                         android:layout_marginBottom="10dp"
                         android:paddingStart="20dp"
                         android:text="Phòng trọ mới"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:textSize="20dp" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvNewestMotels"
@@ -74,6 +79,7 @@
                         android:layout_marginBottom="10dp"
                         android:paddingStart="20dp"
                         android:text="Tất cả phòng trọ"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:textSize="20dp" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvAllMotels"

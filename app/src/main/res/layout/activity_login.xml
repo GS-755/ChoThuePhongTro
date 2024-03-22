@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="25dp"
+
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/login_2"
     tools:context=".activities.signin.LoginActivity">
 
     <LinearLayout
@@ -22,33 +23,54 @@
             android:layout_marginBottom="30dp"
             android:gravity="center"
             android:text="Đăng nhập"
+            android:fontFamily="@font/open_sans_extrabold"
             android:textAllCaps="true"
-            android:textSize="24dp"
+            android:textSize="30dp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="25dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/txtUserName"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/LIU_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:hint="Tên đăng nhập"
-            android:inputType="text" />
+            android:hint="  Tên đăng nhập"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            >
 
-        <EditText
-            android:id="@+id/txtPassword"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtUserName"
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/login_user"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/LIP_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:hint="Mật khẩu"
-            android:inputType="textPassword" />
+            android:hint="  Mật khẩu"
+            app:errorEnabled="true"
+            app:endIconMode="password_toggle"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/login_pass"
+                android:inputType="textPassword"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:id="@+id/labelFailToLogin"
@@ -63,8 +85,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
+            android:fontFamily="@font/be_vietnam_semibold"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="Quên mật khẩu?"
+            android:textColor="@color/white"
             android:textSize="16dp" />
 
         <LinearLayout
@@ -78,6 +103,7 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
+                android:textSize="18sp"
                 android:text="Đăng nhập" />
         </LinearLayout>
 
@@ -87,8 +113,11 @@
             android:layout_height="wrap_content"
             android:autoLink="all"
             android:gravity="center"
+            android:textStyle="bold"
             android:linksClickable="false"
             android:selectAllOnFocus="false"
+            android:textColor="@color/white"
+            android:fontFamily="@font/be_vietnam_semibold"
             android:text="Bạn chưa có tài khoản? Đăng ký"
             android:textSize="18dp" />
 

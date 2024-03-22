@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_bottom_nav"
     tools:context=".fragments.home.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,9 +48,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="10dp"
+                android:fontFamily="@font/open_sans_semibold"
                 android:paddingBottom="10dp"
                 android:text="Nguyễn Văn A"
-                android:textSize="20dp" />
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/labelProfilePhone"
@@ -58,7 +60,8 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:text="090 000 9900"
-                android:textSize="16dp" />
+                android:fontFamily="@font/be_vietnam_semibold"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/labelProfileEmail"
@@ -67,7 +70,8 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:text="nguyenvana@gmail.com"
-                android:textSize="16dp" />
+                android:fontFamily="@font/be_vietnam_semibold"
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,6 +85,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/be_vietnam_semibold"
                     android:text="Cập nhật thông tin cá nhân" />
 
                 <Button
@@ -89,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
+                    android:fontFamily="@font/be_vietnam_semibold"
                     android:text="Lịch sử đặt phòng" />
 
                 <Button
@@ -98,6 +104,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
+                    android:fontFamily="@font/be_vietnam_semibold"
                     android:text="Đăng xuất" />
             </LinearLayout>
 

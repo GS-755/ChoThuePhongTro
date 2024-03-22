@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_bottom_nav"
     tools:context=".activities.admin.motels.EditMotelActivity">
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
+        android:fontFamily="@font/open_sans_extrabold"
         android:text="Chỉnh sửa phòng trọ"
         android:textAllCaps="true"
         android:textSize="22dp"
@@ -25,41 +27,78 @@
         android:layout_margin="15dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/txtEditMotelTitle"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/LIT_EditRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Tiêu đề"
-            android:inputType="text" />
+            android:hint="  Tiêu đề"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            >
 
-        <EditText
-            android:id="@+id/txtEditMotelArea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Diện tích"
-            android:inputType="numberDecimal" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEditMotelTitle"
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/title"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/txtEditMotelAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Số tiền"
-            android:inputType="numberDecimal" />
 
-        <EditText
-            android:id="@+id/txtEditMotelDesc"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/LIA_EditRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Mô tả"
-            android:inputType="text" />
+            android:hint="  Diện tích"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEditMotelArea"
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/area_icon"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/LIAm_EditRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="  Số tiền"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEditMotelAmount"
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/money"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/LID_EditRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="  Mô tả"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEditMotelDesc"
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/title"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,6 +110,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/be_vietnam_semibold"
+                android:textSize="18sp"
                 android:text="Vị trí" />
 
             <Spinner
@@ -90,6 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/be_vietnam_semibold"
                 android:text="Hình ảnh" />
 
             <FrameLayout
@@ -111,6 +153,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/be_vietnam_semibold"
                 android:text="Cập nhật" />
         </LinearLayout>
 

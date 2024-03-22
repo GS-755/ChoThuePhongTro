@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_bottom_nav"
     tools:context=".activities.motels.DetailsActivity">
 
     <ScrollView
@@ -45,6 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:text="Tiêu đề"
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:textSize="26dp"
                         android:textStyle="bold" />
 
@@ -56,6 +58,7 @@
                         android:text="1.000.000 đ"
                         android:textColor="@color/red"
                         android:textSize="22dp"
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -75,6 +78,7 @@
                                 android:layout_width="120dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/be_vietnam_semibold"
                                 android:text="Đặt cọc (30%): "
                                 android:textSize="20dp" />
 
@@ -82,6 +86,7 @@
                                 android:id="@+id/labelDetailsDeposit"
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/be_vietnam_semibold"
                                 android:text="300.000 đ"
                                 android:textSize="20dp" />
                         </LinearLayout>
@@ -93,6 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:text="Diện tích phòng: "
                         android:textSize="16dp" />
 
@@ -100,6 +106,7 @@
                         android:id="@+id/labelDetailsLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:layout_marginBottom="10dp"
                         android:text="Khu vực: "
                         android:textSize="16dp" />
@@ -108,6 +115,7 @@
                         android:id="@+id/labelDetailsAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:layout_marginBottom="10dp"
                         android:text="Địa chỉ: "
                         android:textSize="16dp" />
@@ -125,6 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:text="Thông tin người đăng: "
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -133,12 +142,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:text="Tên người đăng: " />
 
                     <TextView
                         android:id="@+id/labelDetailsPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:layout_marginBottom="10dp"
                         android:text="0900009900" />
                 </LinearLayout>
@@ -155,6 +166,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Chọn loại thanh toán: "
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:textSize="16dp" />
 
                     <RadioGroup
@@ -166,6 +178,7 @@
                             android:id="@+id/rdDeposit"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/be_vietnam_semibold"
                             android:checked="true"
                             android:text="Đặt cọc 30%" />
 
@@ -173,6 +186,7 @@
                             android:id="@+id/rdFullPayment"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/be_vietnam_semibold"
                             android:text="Thanh toán toàn bộ" />
                     </RadioGroup>
                 </LinearLayout>
@@ -186,6 +200,7 @@
                         android:id="@+id/btnPay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/be_vietnam_semibold"
                         android:text="Thanh toán" />
                 </LinearLayout>
             </LinearLayout>

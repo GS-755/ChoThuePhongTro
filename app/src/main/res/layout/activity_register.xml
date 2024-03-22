@@ -4,19 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_bottom_nav"
     tools:context=".activities.signin.RegisterActivity" >
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/open_sans_extrabold"
+        android:gravity="center"
+        android:text="Đăng ký tài khoản"
+        android:textAllCaps="true"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="367dp"
         android:layout_height="510dp"
+        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -24,24 +45,38 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/txtRegisterCid"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LI_ID_Register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint="Số CCCD"
-                    android:inputType="text" />
+                    android:hint="  Số CCCD"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true">
 
-                <EditText
-                    android:id="@+id/txtRegisterName"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRegisterCid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/lock_icon"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LI_fullName_Register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint="Họ và Tên"
-                    android:inputType="text" />
+                    android:hint="  Họ và Tên"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true">,
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRegisterName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/login_user"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -113,15 +148,23 @@
 
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/txtRegisterAddress"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LI_address_Register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Địa chỉ"
-                    android:inputType="text" />
+                    android:hint="  Địa chỉ"
+                    android:inputType="text"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRegisterAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/book_icon"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -129,42 +172,77 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/txtRegisterUsrName"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LI_username_Register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint="Tên đăng nhập"
-                    android:inputType="text" />
+                    android:hint="  Tên đăng nhập"
+                    android:inputType="text"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true">
 
-                <EditText
-                    android:id="@+id/txtRegisterPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint="Mật khẩu"
-                    android:inputType="textPassword" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRegisterUsrName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/login_user"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/txtRegisterEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress" />
 
-                <EditText
-                    android:id="@+id/txtRegisterPhone"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LI_password_Register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint="Số điện thoại"
-                    android:inputType="phone" />
+                    android:hint="  Mật khẩu"
+                    android:inputType="text"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRegisterPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/login_pass"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LI_email_Register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="  Email"
+                    android:inputType="text"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRegisterEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/mail_icon"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LI_phoneNum_Register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="  Số điện thoại"
+                    android:inputType="text"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRegisterPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/phone_icon"
+                        android:inputType="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -193,6 +271,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
+                            android:fontFamily="@font/be_vietnam_semibold"
                             android:text="Khách hàng" />
 
                         <RadioButton
@@ -200,6 +279,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="35dp"
+                            android:fontFamily="@font/be_vietnam_semibold"
                             android:text="Chủ trọ" />
                     </RadioGroup>
 
@@ -215,24 +295,15 @@
                         android:id="@+id/btnRegisterAccount"
                         android:layout_width="250dp"
                         android:layout_height="59dp"
-                        android:text="Đăng ký" />
+                        android:fontFamily="@font/be_vietnam_semibold"
+                        android:text="Đăng ký"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Đăng ký tài khoản"
-        android:textAllCaps="true"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

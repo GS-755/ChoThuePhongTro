@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="20dp"
+        android:background="@drawable/card"
         android:paddingBottom="20dp">
 
         <ImageView
@@ -33,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/be_vietnam_semibold"
                 android:text="Cho thuê phòng trọ Hóc Môn giá rẻ (có ma)"
                 android:textSize="18dp"
                 android:textStyle="bold" />
@@ -54,6 +57,7 @@
                 <TextView
                     android:id="@+id/labelDsMotelPublisher"
                     android:layout_width="220dp"
+                    android:fontFamily="@font/be_vietnam_semibold"
                     android:layout_height="wrap_content"
                     android:text="Nguyễn Minh Trí" />
             </LinearLayout>
@@ -76,6 +80,7 @@
                     android:id="@+id/labelDsMotelArea"
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/be_vietnam_semibold"
                     android:text="36.5 m2" />
             </LinearLayout>
 
@@ -86,6 +91,7 @@
                 android:layout_weight="1"
                 android:text="1.000.000 đ"
                 android:textColor="@color/red"
+                android:fontFamily="@font/be_vietnam_semibold"
                 android:textSize="20dp"
                 android:textStyle="bold" />
         </LinearLayout>
