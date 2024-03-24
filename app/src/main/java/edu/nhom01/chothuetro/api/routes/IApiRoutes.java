@@ -22,8 +22,8 @@ import retrofit2.http.Query;
 
 public interface IApiRoutes {
     // API URL
-    String API_URL = "http://192.168.40.128/api/";
-    String IMG_URL = "http://192.168.40.128/api/images/getmotelimage?motelid=";
+    String API_URL = "http://192.168.40.128:3030/api/";
+    String IMG_URL = "http://192.168.40.128:3030/api/images/getmotelimage?motelid=";
 
     // Locations API
     @GET("locations")
