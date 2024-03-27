@@ -30,7 +30,7 @@ public class VnPayResponseActivity extends AppCompatActivity {
     private Button btnBackToHome;
     private TextView txtTransactedAmount;
     private TextView txtTransactedMessage;
-    private ImageView imgTransactIcon;
+    ImageView imgTransactIcon;
     String responseUrl;
     Transaction transaction;
     Motel motel;
@@ -51,18 +51,19 @@ public class VnPayResponseActivity extends AppCompatActivity {
             URL url = new URL(responseUrl);
             Map<String, String> vnPayResponseParams = StrProcessor.splitQueryParams(url);
             vnPayResponse.setTerminalId(vnPayResponseParams.get("vnp_TmnCode"));
-            vnPayResponse.setClientTransactId(vnPayResponseParams.get(""));
-            vnPayResponse.setServerTransactId(vnPayResponseParams.get(""));
+            vnPayResponse.setClientTransactId(vnPayResponseParams.get("vnp_TxnRef"));
+            vnPayResponse.setServerTransactId(vnPayResponseParams.get("vnp_TransactionNo"));
             vnPayResponse.setBankCode(vnPayResponseParams.get("vnp_BankCode"));
-            vnPayResponse.setPaymentAmount(Double.parseDouble(vnPayResponseParams.get("")));
-            vnPayResponse.setTransactionStatus(Integer.parseInt(vnPayResponseParams.get("")));
+            vnPayResponse.setPaymentAmount(Double.parseDouble(vnPayResponseParams.get("vnp_Amount")));
+            vnPayResponse.setTransactionStatus(Integer.parseInt(vnPayResponseParams.get("vnp_TransactionStatus")));
             if(vnPayResponse.getTransactionStatus() == 0) {
-                vnPayResponse.setReturnText(vnPayResponseParams.get("Cảm ơn quý khách đã giao dịch"));
+                vnPayResponse.setReturnText("Cảm ơn quý khách đã giao dịch");
             }
             else {
-                vnPayResponse.setReturnText(vnPayResponseParams.get(
-                        String.format("Có lỗi xảy ra trong quá trình giao dịch \n Mã lỗi: %d",
-                                vnPayResponse.getTransactionStatus()))
+                vnPayResponse.setReturnText(
+                        String.format("Có lỗi xảy ra " +
+                                        "trong quá trình giao dịch \n Mã lỗi: %d",
+                                vnPayResponse.getTransactionStatus())
                 );
             }
         }
@@ -91,7 +92,7 @@ public class VnPayResponseActivity extends AppCompatActivity {
                 Log.e("API_ERR", t.getMessage());
             }
         });
-        this.imgTransactIcon = findViewById(R.id.imgTransactIcon);
+        imgTransactIcon = findViewById(R.id.imgTransactIcon);
         this.txtTransactedMessage = findViewById(R.id.txtTransactedMessage);
         this.txtTransactedAmount = findViewById(R.id.txtTransactedAmount);
         this.btnBackToHome = findViewById(R.id.btnBackToHome);
@@ -104,15 +105,19 @@ public class VnPayResponseActivity extends AppCompatActivity {
         });
     }
     private void setContentResponse() throws InterruptedException {
-        Thread.sleep(1200);
         if(transaction != null) {
             this.txtTransactedAmount.setText(
-                    StrProcessor.formatVnCurrency(transaction.getAmount()));
+                    StrProcessor.formatVnCurrency(vnPayResponse.getPaymentAmount() / 100));
         }
         if(vnPayResponse != null) {
             if(vnPayResponse.getTransactionStatus() != 0) {
                 Drawable drawable = getDrawable(R.drawable.transact_fail);
                 imgTransactIcon.setImageDrawable(drawable);
+            }
+            else {
+                Drawable drawable = getDrawable(R.drawable.transact_complete);
+                imgTransactIcon.setImageDrawable(drawable);
+                this.updateMotelStatusFromTransaction();
             }
             txtTransactedMessage.setText(vnPayResponse.getReturnText().trim());
         }
@@ -120,6 +125,12 @@ public class VnPayResponseActivity extends AppCompatActivity {
     private void updateMotelStatusFromTransaction() {
         try {
             Motel editedMotel = this.motel;
+            if(transaction.getIdTransactionType() == 1) {
+                editedMotel.setIdStatus(2);
+            }
+            if(transaction.getIdTransactionType() == 2) {
+                editedMotel.setIdStatus(3);
+            }
             Call<Motel> callMotel = ApiClient.getInstance().
                     getRoute().putMotel(this.motel.getMotelId(), editedMotel);
             callMotel.enqueue(new Callback<Motel>() {

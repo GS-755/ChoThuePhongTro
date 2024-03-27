@@ -53,23 +53,17 @@ public class VnPayTransactActivity extends AppCompatActivity {
                                 vnPayNode = response.body();
                                 vnPayWebView.setWebViewClient(new WebViewClient() {
                                     @Override
-                                    public boolean shouldOverrideUrlLoading(
-                                            WebView view, WebResourceRequest request) {
-                                        if(paymentUrl.contains(IApiRoutes.API_URL)) {
+                                    public void onPageFinished(WebView view, String url) {
+                                        super.onPageFinished(view, url);
+                                        if(url.contains(IApiRoutes.API_URL.trim())) {
                                             Intent i = new Intent(
                                                     VnPayTransactActivity.this,
                                                     VnPayResponseActivity.class
                                             );
-                                            i.putExtra("VnPay-Response", paymentUrl.trim());
+                                            i.putExtra("VnPay-Response", url.trim());
                                             startActivity(i);
                                             finish();
                                         }
-
-                                        return true;
-                                    }
-                                    @Override
-                                    public void onPageFinished(WebView view, String url) {
-                                        super.onPageFinished(view, url);
                                     }
                                 });
                                 vnPayWebView.getSettings().setJavaScriptEnabled(true);
