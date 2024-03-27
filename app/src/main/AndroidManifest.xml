@@ -17,7 +17,10 @@
         android:theme="@style/Theme.ChoThuêPhòngTrọ"
         tools:targetApi="31">
         <activity
-            android:name=".activities.motels.VnPayActivity"
+            android:name=".activities.motels.VnPayResponseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.motels.VnPayTransactActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.motels.EditMotelActivity"
@@ -50,6 +53,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

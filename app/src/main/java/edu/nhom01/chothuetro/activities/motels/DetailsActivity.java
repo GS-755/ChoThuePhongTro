@@ -111,7 +111,7 @@ public class DetailsActivity extends AppCompatActivity {
                 }
 
                 Session.put("transaction-item", transaction);
-                Intent i = new Intent(this, VnPayActivity.class);
+                Intent i = new Intent(this, VnPayTransactActivity.class);
                 startActivity(i);
             }
             catch(Exception ex) {

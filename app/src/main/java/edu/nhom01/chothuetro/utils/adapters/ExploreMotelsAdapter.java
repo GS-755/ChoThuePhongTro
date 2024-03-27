@@ -18,6 +18,7 @@ import edu.nhom01.chothuetro.activities.motels.DetailsActivity;
 import edu.nhom01.chothuetro.models.motels.Motel;
 import edu.nhom01.chothuetro.utils.DisplayImage;
 import edu.nhom01.chothuetro.utils.StrProcessor;
+import edu.nhom01.chothuetro.utils.adapters.interfaces.ItemClickListener;
 
 public class ExploreMotelsAdapter extends RecyclerView.Adapter<ExploreMotelsAdapter.ItemVH> {
     private Context context;

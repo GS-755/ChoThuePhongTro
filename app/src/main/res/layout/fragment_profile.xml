@@ -89,15 +89,6 @@
                     android:text="Cập nhật thông tin cá nhân" />
 
                 <Button
-                    android:id="@+id/btnProfileBookingHistory"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:fontFamily="@font/be_vietnam_semibold"
-                    android:text="Lịch sử đặt phòng" />
-
-                <Button
                     android:id="@+id/btnProfileLogout"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"

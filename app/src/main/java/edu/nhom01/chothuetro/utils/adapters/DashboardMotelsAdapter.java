@@ -18,6 +18,7 @@ import edu.nhom01.chothuetro.activities.admin.motels.EditMotelActivity;
 import edu.nhom01.chothuetro.models.motels.Motel;
 import edu.nhom01.chothuetro.utils.DisplayImage;
 import edu.nhom01.chothuetro.utils.StrProcessor;
+import edu.nhom01.chothuetro.utils.adapters.interfaces.ItemClickListener;
 
 public class DashboardMotelsAdapter extends RecyclerView.Adapter<DashboardMotelsAdapter.ItemVH> {
     private Context context;

@@ -1,29 +1,33 @@
 package edu.nhom01.chothuetro.activities.motels;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import edu.nhom01.chothuetro.R;
 import edu.nhom01.chothuetro.api.client.ApiClient;
-import edu.nhom01.chothuetro.models.nodes.VnPayNode;
+import edu.nhom01.chothuetro.api.routes.IApiRoutes;
+import edu.nhom01.chothuetro.models.nodes.VnPayRequest;
 import edu.nhom01.chothuetro.models.transactions.Transaction;
 import edu.nhom01.chothuetro.utils.Session;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VnPayActivity extends AppCompatActivity {
+public class VnPayTransactActivity extends AppCompatActivity {
     WebView vnPayWebView;
     TextView labelTransactId;
     Transaction transaction;
-    VnPayNode vnPayNode;
+    VnPayRequest vnPayNode;
 
     private void setComponents() {
-        vnPayNode = new VnPayNode();
+        vnPayNode = new VnPayRequest();
         transaction = new Transaction();
         labelTransactId = findViewById(R.id.labelTransactId);
         vnPayWebView = findViewById(R.id.webVnPay);
@@ -36,24 +40,44 @@ public class VnPayActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Transaction> call, Response<Transaction> response) {
                 if(response.isSuccessful()) {
-                    Call<VnPayNode> callVnPay = ApiClient.getInstance()
+                    Call<VnPayRequest> callVnPay = ApiClient.getInstance()
                             .getRoute().sendTransactionLink(transaction.
                                     getTransactionId().trim(), "VNPAY");
-                    callVnPay.enqueue(new Callback<VnPayNode>() {
+                    callVnPay.enqueue(new Callback<VnPayRequest>() {
                         @Override
-                        public void onResponse(Call<VnPayNode> call, Response<VnPayNode> response) {
+                        public void onResponse(Call<VnPayRequest> call,
+                                               Response<VnPayRequest> response) {
                             if(response.isSuccessful()) {
-                                String url = response.body().getValueNode().trim();
+                                String paymentUrl = response.body().getValueNode().trim();
                                 labelTransactId.setText(transaction.getTransactionId());
                                 vnPayNode = response.body();
-                                WebViewClient client = new WebViewClient();
-                                vnPayWebView.setWebViewClient(client);
+                                vnPayWebView.setWebViewClient(new WebViewClient() {
+                                    @Override
+                                    public boolean shouldOverrideUrlLoading(
+                                            WebView view, WebResourceRequest request) {
+                                        if(paymentUrl.contains(IApiRoutes.API_URL)) {
+                                            Intent i = new Intent(
+                                                    VnPayTransactActivity.this,
+                                                    VnPayResponseActivity.class
+                                            );
+                                            i.putExtra("VnPay-Response", paymentUrl.trim());
+                                            startActivity(i);
+                                            finish();
+                                        }
+
+                                        return true;
+                                    }
+                                    @Override
+                                    public void onPageFinished(WebView view, String url) {
+                                        super.onPageFinished(view, url);
+                                    }
+                                });
                                 vnPayWebView.getSettings().setJavaScriptEnabled(true);
-                                vnPayWebView.loadUrl(url);
+                                vnPayWebView.loadUrl(paymentUrl);
                             }
                         }
                         @Override
-                        public void onFailure(Call<VnPayNode> call, Throwable t) {
+                        public void onFailure(Call<VnPayRequest> call, Throwable t) {
                             Log.e("API_ERR", t.getMessage());
                         }
                     });

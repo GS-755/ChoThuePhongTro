@@ -1,4 +1,4 @@
-package edu.nhom01.chothuetro.utils.adapters;
+package edu.nhom01.chothuetro.utils.adapters.interfaces;
 
 import android.view.View;
 

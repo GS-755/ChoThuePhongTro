@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_bottom_nav"
-    tools:context=".activities.motels.VnPayActivity">
+    tools:context=".activities.motels.VnPayTransactActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

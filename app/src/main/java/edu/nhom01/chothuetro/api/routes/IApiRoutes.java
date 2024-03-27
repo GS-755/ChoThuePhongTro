@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import edu.nhom01.chothuetro.models.motels.Location;
 import edu.nhom01.chothuetro.models.motels.Motel;
-import edu.nhom01.chothuetro.models.nodes.VnPayNode;
+import edu.nhom01.chothuetro.models.nodes.VnPayRequest;
+import edu.nhom01.chothuetro.models.nodes.VnPayResponse;
 import edu.nhom01.chothuetro.models.person.Account;
 import edu.nhom01.chothuetro.models.person.Role;
 import edu.nhom01.chothuetro.models.person.User;
@@ -34,18 +35,23 @@ public interface IApiRoutes {
     Call<Location> getLocation(@Query("id") int id);
 
     // Motels API
+    // GET danh sách phòng trọ
     @GET("motels")
     @Headers({ "Content-Type: application/json" })
     Call<ArrayList<Motel>> getMotels();
+    // GET 1 đối tượng phòng trọ thông qua Mã phòng trọ
     @GET("motels")
     @Headers({ "Content-Type: application/json" })
     Call<Motel> getMotel(@Query("id") int id);
+    // POST phòng trọ
     @POST("motels/postphongtro")
     @Headers({ "Content-Type: application/json" })
     Call<Motel> postMotel(@Body Motel motel);
+    // PUT phòng trọ
     @PUT("motels/putphongtro/{id}")
     @Headers({ "Content-Type: application/json" })
     Call<Motel> putMotel(@Path("id") int id, @Body Motel motel);
+    // DELETE phòng trọ
     @DELETE("motels/deletephongtro")
     @Headers({ "Content-Type: application/json" })
     Call<Motel> deleteMotel(@Query("id") int id);
@@ -104,6 +110,22 @@ public interface IApiRoutes {
     // VnPay API
     @GET("vnpay/sendtransaction")
     @Headers({ "Content-Type: application/json" })
-    Call<VnPayNode> sendTransactionLink(@Query("maGd") String transactId,
-                                        @Query("vnpBankCode") String vnpBankCode);
+    Call<VnPayRequest> sendTransactionLink(@Query("maGd") String transactId,
+                                           @Query("vnpBankCode") String vnpBankCode);
+    @GET("vnpay/getresponse")
+    @Headers({ "Content-Type: application/json" })
+    Call<VnPayResponse> getTransactionResponse(
+            @Query("vnp_Amount") String vnp_Amount,
+            @Query("vnp_BankCode") String vnp_BankCode,
+            @Query("vnp_BankTranNo") String vnp_BankTranNo,
+            @Query("vnp_CardType") String vnp_CardType,
+            @Query("vnp_OrderInfo") String vnp_OrderInfo,
+            @Query("vnp_PayDate") String vnp_PayDate,
+            @Query("vnp_ResponseCode") String vnp_ResponseCode,
+            @Query("vnp_TmnCode") String vnp_TmnCode,
+            @Query("vnp_TransactionNo") String vnp_TransactionNo,
+            @Query("vnp_TransactionStatus") String vnp_TransactionStatus,
+            @Query("vnp_TxnRef") String vnp_TxnRef,
+            @Query("vnp_SecureHash") String vnp_SecureHash
+    );
 }
